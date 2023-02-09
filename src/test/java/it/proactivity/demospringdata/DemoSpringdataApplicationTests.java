@@ -55,7 +55,7 @@ class DemoSpringdataApplicationTests {
 		assertEquals(humanResourceList.get(1).getName(), anotherHumanResourceList.get(1).getName());
 		assertEquals(humanResourceList.get(2).getName(), anotherHumanResourceList.get(2).getName());
 
-		List<HumanResource> unusefulList = humanResourceRepository.findHumarResourceWithBigId();
+		List<HumanResource> unusefulList = humanResourceRepository.findHumanResourceWithBigId();
 		unusefulList.stream().forEach(x -> System.out.println(x));
 		assertTrue(unusefulList.size() == 1);
 	}
@@ -64,6 +64,21 @@ class DemoSpringdataApplicationTests {
 	void paginationTest() {
 		Page<List<HumanResource>> humanResourceList = humanResourceRepository.findAllHumanResourceWithPagination(PageRequest.of(
 				0, 5, Sort.by("name")));
-		humanResourceList.get().forEach(x -> System.out.println(x));
+		assertTrue(humanResourceList != null);
+	}
+
+	@Test
+	void parameterTest() {
+		HumanResource hr = null;
+		hr = humanResourceRepository.findHumanResourceByNameNative("Luigi");
+		assertEquals("Cerrato", hr.getSurname());
+
+		hr = humanResourceRepository.findHumanResourceByNameAndSurname("Alfonso", "Cerrato");
+		assertEquals("Cerrato", hr.getSurname());
+		assertEquals("Alfonso", hr.getName());
+
+		hr = humanResourceRepository.findUserBySurnameAndNameNamedParams("Di Capri", "Peppino");
+		assertEquals("Di Capri", hr.getSurname());
+		assertEquals("Peppino", hr.getName());
 	}
 }
