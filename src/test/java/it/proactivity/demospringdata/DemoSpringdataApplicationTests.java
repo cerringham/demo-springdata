@@ -1,15 +1,17 @@
 package it.proactivity.demospringdata;
 
+import it.proactivity.demospringdata.model.Customer;
 import it.proactivity.demospringdata.model.HumanResource;
 import it.proactivity.demospringdata.repository.HumanResourceRepository;
+import it.proactivity.demospringdata.service.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -20,6 +22,9 @@ class DemoSpringdataApplicationTests {
 
 	@Autowired
 	HumanResourceRepository humanResourceRepository;
+
+	@Autowired
+	CustomerService customerService;
 
 	@Test
 	void contextLoads() {
@@ -92,4 +97,18 @@ class DemoSpringdataApplicationTests {
 		assertEquals("Di Capri", hr.getSurname());
 		assertEquals("Peppino", hr.getName());
 	}
+
+	@Test
+	void findAllCustomerOrderByName() {
+		List<Customer> customers = customerService.findAllCustomerOrderByNameDesc();
+		customers.stream()
+				.forEach(System.out::println);
+	}
+
+	@Test
+	void findAllCustomerWithPagination() {
+		Page<List<Customer>> customers = customerService.findAllCustomerWithPagination();
+		assertTrue(customers.getSize() == 6);
+	}
+
 }
