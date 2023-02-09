@@ -3,6 +3,7 @@ package it.proactivity.demospringdata.repository;
 import it.proactivity.demospringdata.model.HumanResource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
