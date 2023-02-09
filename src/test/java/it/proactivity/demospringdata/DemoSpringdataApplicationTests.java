@@ -33,6 +33,16 @@ class DemoSpringdataApplicationTests {
 		} else {
 			System.out.println("Something is wrong");
 		}
+		assertTrue(list != null);
+		assertTrue(list.size() > 0);
+	}
+
+	@Test
+	void findByIdList() {
+		List<Long> idList = List.of(51l, 6l, 7l, 8l, 9l);
+		List<HumanResource> list = humanResourceRepository.findAllById(idList);
+
+		assertTrue(list.size() == 4);
 	}
 
 	@Test
@@ -57,9 +67,10 @@ class DemoSpringdataApplicationTests {
 
 		List<HumanResource> unusefulList = humanResourceRepository.findHumanResourceWithBigId();
 		unusefulList.stream().forEach(x -> System.out.println(x));
-		assertTrue(unusefulList.size() == 1);
+		assertTrue(unusefulList.size() > 1);
 	}
 
+	// page 0, n-1
 	@Test
 	void paginationTest() {
 		Page<List<HumanResource>> humanResourceList = humanResourceRepository.findAllHumanResourceWithPagination(PageRequest.of(

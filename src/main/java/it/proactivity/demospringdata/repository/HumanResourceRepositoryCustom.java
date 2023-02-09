@@ -7,4 +7,5 @@ import java.util.List;
 public interface HumanResourceRepositoryCustom {
 
     List<HumanResource> retrieveByNameAndSurname(String name, String surname);
+
 }

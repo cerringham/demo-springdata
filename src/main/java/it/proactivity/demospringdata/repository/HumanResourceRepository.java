@@ -17,7 +17,9 @@ public interface HumanResourceRepository extends JpaRepository<HumanResource, Lo
 
     List<HumanResource> findByNameOrderBySurnameAsc(String name);
 
-    @Query(value="SELECT h FROM HumanResource h WHERE h.id >= 3") //JPQL
+    @Query(value="SELECT h " +
+            "FROM HumanResource h " +
+            "WHERE h.id >= 3")
     List<HumanResource> findHumanResourceWithBigId();
 
     @Query(value = "SELECT h FROM HumanResource h ORDER BY id")
