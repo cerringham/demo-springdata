@@ -23,7 +23,7 @@ public interface HumanResourceRepository extends JpaRepository<HumanResource, Lo
     List<HumanResource> findHumanResourceWithBigId();
 
     @Query(value = "SELECT h FROM HumanResource h ORDER BY id")
-    Page<List<HumanResource>> findAllHumanResourceWithPagination(Pageable pageable);
+    Page<HumanResource> findAllHumanResourceWithPagination(Pageable pageable);
 
     @Query("SELECT h FROM HumanResource h WHERE h.name = ?1 and h.surname = ?2")
     HumanResource findHumanResourceByNameAndSurname(String name, String surname);

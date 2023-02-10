@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -73,8 +74,11 @@ class DemoSpringdataApplicationTests {
 	// page 0, n-1
 	@Test
 	void paginationTest() {
-		Page<List<HumanResource>> humanResourceList = humanResourceRepository.findAllHumanResourceWithPagination(PageRequest.of(
+		Page<HumanResource> humanResourceListPageable = humanResourceRepository.findAllHumanResourceWithPagination(PageRequest.of(
 				0, 5, Sort.by("name")));
+
+		List<HumanResource> humanResourceList = humanResourceListPageable.getContent();
+
 		assertTrue(humanResourceList != null);
 	}
 
